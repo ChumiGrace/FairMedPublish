@@ -3,10 +3,11 @@ import Profile from "../Components/Profile/Profile";
 import Sidebardoc from "../Components/Sidebar/Sidebardoc";
 
 function DoctorDashboard() {
-  const [data, setData] = useState([{ rate: "No Data", review: "No Data" }]);
+  const [data, setData] = useState([]);
   const token = localStorage.getItem("access_token");
-  const url = `http://localhost:8000/review/recent/`;
-  console.log(typeof data);
+  const id = localStorage.getItem("id");
+  const url = `http://localhost:8000/physician/${id}/`;
+
   useEffect(() => {
     fetch(url, {
       method: "GET",
@@ -23,16 +24,61 @@ function DoctorDashboard() {
         }
       })
       .then((data) => {
-        setData(data);
+        setData(JSON.parse(data.recent_reviews));
       });
   }, [token, url]);
 
   console.log(data);
 
+  const Card = ({ rev }) => (
+    <div class="card-body pt-0">
+      <div className="widget">
+        <div className="widget-title-wrapper">
+          <div className="widget-date-primary">
+            <span className="widget-date-day">date</span>
+            <span className="widget-date-month">month</span>
+          </div>
+          <div className="widget-info">
+            <span className="widget-49-pro-title">{rev.patientName}</span>
+            <span className="widget-time">hola como estas</span>
+          </div>
+        </div>
+        <div className="widget-info">{rev.review}</div>
+        <div className="widget-action">
+          <a
+            href="/rate-review"
+            className="btn btn-sm btn-flash-border-primary"
+          >
+            Go to rate
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Component that maps over the fetchedData and renders Card components
+  const CardComponent = () => {
+    const list = data
+      ? data
+      : [
+          {
+            patientName: "No REVIEWS yet!",
+            review: "The reviews will be seen as soon as someone reviews you",
+          },
+        ];
+    return (
+      <div>
+        {list.map((rev, index) => (
+          <Card key={index} rev={rev} />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="con">
       <div className="sidebar-container">
-        <Sidebardoc />
+        <Sidebardoc acc="physician" />
       </div>
       <div className="dashboard-maincontent d-flex justify-content-evenly flex-wrap ">
         <div className="patient-recent-activity">
@@ -41,113 +87,13 @@ function DoctorDashboard() {
               <div class="card-header no-border">
                 <h5 class="card-title">My recent ratings and reviews</h5>
               </div>
-              <div class="card-body pt-0">
-                <div class="widget">
-                  <div class="widget-title-wrapper">
-                    <div class="widget-date-primary">
-                      <span class="widget-date-day">date</span>
-                      <span class="widget-date-month">month</span>
-                    </div>
-                    <div class="widget-info">
-                      <span class="widget-49-pro-title">
-                        Something something
-                      </span>
-                      <span class="widget-time">hola como estas</span>
-                    </div>
-                  </div>
-                  <ul class="widget-rating">
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                  </ul>
-                  <div class="widget-action">
-                    <a
-                      href="/rate-review"
-                      class="btn btn-sm btn-flash-border-primary"
-                    >
-                      Go to rate
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="patient-recent-activity-update">
-            <div class="card card-margin">
-              <div class="card-header no-border">
-                <h5 class="card-title">My recent Medical updates</h5>
-              </div>
-              <div class="card-body pt-0">
-                <div class="widget">
-                  <div class="widget-title-wrapper">
-                    <div class="widget-date-primary">
-                      <span class="widget-date-day">date</span>
-                      <span class="widget-date-month">month</span>
-                    </div>
-                    <div class="widget-info">
-                      <span class="widget-49-pro-title">
-                        Something something
-                      </span>
-                      <span class="widget-time">hola como estas</span>
-                    </div>
-                  </div>
-                  <ul class="widget-rating">
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                    <li class="widget-item">
-                      <span>lorem</span>
-                    </li>
-                  </ul>
-                  <div class="widget-action">
-                    <a
-                      href="/my-medical-record"
-                      class="btn btn-sm btn-flash-border-primary"
-                    >
-                      Go to Medical Record
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <CardComponent />
             </div>
           </div>
         </div>
 
         <div className="profile">
-          <Profile />
+          <Profile user="physician_profile" />
         </div>
       </div>
     </div>

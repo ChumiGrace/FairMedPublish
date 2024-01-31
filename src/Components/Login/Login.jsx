@@ -4,18 +4,21 @@ import { useNavigate } from 'react-router-dom/dist';
 
 function Login() {
   const [isUsingEmail, setIsUsingEmail] = useState(true);
-  const [activeButton, setActiveButton] = useState('patient');
+  const [activeButton, setActiveButton] = useState('');
   const log_url = `http://127.0.0.1:8000/login/${activeButton}/`
   const [isDoctor, setIsDoctor] = useState(false);
   const navigate = useNavigate()
 
-
+  console.log(activeButton)
+  
+  
   const [formData, setFormData] = useState({
     email: '',
     phone: '',
     password: '',
   });
-
+  
+  console.log(formData)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,9 +44,12 @@ function Login() {
     };
 
   const handleSubmit = async () => {
-    loginUser()
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    navigate('/patient-dashboard')
+    const log = await loginUser()
+    if (log){
+      navigate(`/${activeButton}-dashboard`)
+    } else {
+      alert('The credetials are Not correct!')
+    }
   }
 
 
@@ -53,7 +59,7 @@ function Login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     })
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -63,6 +69,12 @@ function Login() {
     
       localStorage.setItem('access_token',data['token'])
       localStorage.setItem('id', data['id'])
+
+      if (data['token'] !== undefined){
+        return true
+      } else {
+        return false
+      }
   }
 
 
@@ -94,6 +106,7 @@ function Login() {
                           <input
                             type="email"
                             name ="email"
+                            disabled= {activeButton ? false : true}
                             className="form-control"
                             id="floatingInput"
                             onChange={handleChange}
@@ -103,6 +116,7 @@ function Login() {
                           <input
                             type="tel"
                             name='phone'
+                            disabled= {activeButton ? false : true}
                             className="form-control"
                             id="floatingInput"
                             placeholder="Phone number"
@@ -117,6 +131,7 @@ function Login() {
                         <input
                           type="password"
                           name='password'
+                          disabled= {activeButton ? false : true}
                           className="form-control"
                           id="floatingPassword"
                           placeholder="Password"
@@ -126,6 +141,7 @@ function Login() {
                       </div>
                       <div className="d-grid">
                       <button
+                        disabled= {activeButton ? false : true}
                         className="btn btn-lg btn-primary btn-signup text-uppercase fw-bold mb-2"
                         type="submit"
                       >

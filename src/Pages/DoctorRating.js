@@ -29,11 +29,6 @@ function DoctorRating() {
 
   console.log(fetchedData);
 
-  const identifyUser = async (event) => {
-    localStorage.setItem("profileId", event.target.name);
-    console.log(event.target);
-  };
-
   const Card = ({ user }) => (
     <section className="mt-5 container doctorProfile-container">
       <div className="container p-3 text-center">
@@ -51,11 +46,12 @@ function DoctorRating() {
       <div className="text-center pb-3">
         <button
           type="button"
-          name={user.id}
-          onClick={identifyUser}
           className="btn btn-danger  btn-lg mt-3 w-100 rounded"
         >
-          <a className="text-decoration-none text-black" href="/view-doctor">
+          <a
+            className="text-decoration-none text-black"
+            href={`/view-doctor/${user.id}`}
+          >
             View Profile
           </a>
         </button>
