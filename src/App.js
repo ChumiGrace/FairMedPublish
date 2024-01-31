@@ -19,6 +19,8 @@ import SupportDoc from './Pages/SupportDoc';
 import PdashboardDrate from './Pages/PdashboardDrate';
 import PdashboardHrate from './Pages/PdashboardHrate';
 import ViewDoctorDashboard from './Pages/ViewDoctorDashboard';
+import ViewHealthcareDashboard from './Pages/ViewHealthcareDashboard';
+import ForgotPassword from './Pages/ForgotPassword';
 function App() {
   
   return (
@@ -44,6 +46,8 @@ function App() {
           <Route path='/dashboard-doctor-rate' element={<PdashboardDrate />}></Route>
           <Route path='/dashboard-healthcare-rate' element={<PdashboardHrate />}></Route>
           <Route path='/view-doctor-dashboard' element={<ViewDoctorDashboard />}></Route>
+          <Route path='/view-healthcare-dashboard' element={<ViewHealthcareDashboard />}></Route>
+          <Route path='/forgot-password' element={<ForgotPassword />}></Route>
         </Routes>
       </BrowserRouter>
   

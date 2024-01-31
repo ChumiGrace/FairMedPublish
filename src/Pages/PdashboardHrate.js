@@ -28,7 +28,7 @@ function PdashboardHrate() {
             </div>
           </div>
           <div>
-            <button type="button" class="btn btn-danger  btn-lg mt-3 w-100 rounded" ><a className='text-decoration-none text-black'href="#">View Profile</a></button>
+            <button type="button" class="btn btn-danger  btn-lg mt-3 w-100 rounded" ><a className='text-decoration-none text-black'href="/view-healthcare-dashboard">View Profile</a></button>
           </div>
         </div>
       </section>

@@ -7,9 +7,11 @@ import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import { Route, Link } from 'react-router-dom';
 
+
 function Header(props) {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // Add menuOpen state
 
   const handleCloseLoginModal = () => {
     setLoginModalOpen(false);
@@ -27,6 +29,10 @@ function Header(props) {
     setSignupModalOpen(true);
   };
 
+  const handleMenuClick = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <>
       <div className="navbar-header">
@@ -34,7 +40,7 @@ function Header(props) {
           <img className="navlogo" src={logo} alt="Logo" />
           <span>FairMed</span>
         </a>
-        <nav className="header-nav">
+        <nav className={menuOpen ? "header-nav open" : "header-nav"}>
           <ul className="navbar" type="none">
             <li>
               <a href="/home" id="style-2">Home</a>
@@ -69,35 +75,35 @@ function Header(props) {
           >
             Signup
           </a>
-          <a href="#" className="bx bx-menu" id="menu-icon" />
+          <a href="#" className="bx bx-menu" id="menu-icon" onClick={handleMenuClick} />
         </div>
       </div>
 
-        <Modal
-          show={loginModalOpen}
-          onHide={handleCloseLoginModal}
-          centered
-          dialogClassName="custom-modal"
-        >
-          <Modal.Header closeButton />
-          <Modal.Body>
-            <Login />
-          </Modal.Body>
-          <Modal.Footer />
-        </Modal>
+      <Modal
+        show={loginModalOpen}
+        onHide={handleCloseLoginModal}
+        centered
+        dialogClassName="custom-modal"
+      >
+        <Modal.Header closeButton />
+        <Modal.Body>
+          <Login />
+        </Modal.Body>
+        <Modal.Footer />
+      </Modal>
 
-        <Modal
-          show={signupModalOpen}
-          onHide={handleCloseSignupModal}
-          centered
-          dialogClassName="custom-modal"
-        >
-          <Modal.Header closeButton />
-          <Modal.Body>
-            <SignUp />
-          </Modal.Body>
-          <Modal.Footer />
-        </Modal>
+      <Modal
+        show={signupModalOpen}
+        onHide={handleCloseSignupModal}
+        centered
+        dialogClassName="custom-modal"
+      >
+        <Modal.Header closeButton />
+        <Modal.Body>
+          <SignUp />
+        </Modal.Body>
+        <Modal.Footer />
+      </Modal>
 
     </>
   );

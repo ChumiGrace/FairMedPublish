@@ -143,16 +143,19 @@
         display: block;
     }
     .navbar {
-        position:absolute;
-        top: 100%;
-        width:100%;
-        height: 38vh;
+        height: fit-content;
+        padding:2rem;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        gap:1rem;
         transition: all .50s ease;
         background-color: #00274F;
         color:#E6E6E6;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: fit-content;
     }
 
 
