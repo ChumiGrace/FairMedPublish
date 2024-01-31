@@ -3,19 +3,6 @@ import Sidebar from '../Components/Sidebar/Sidebar';
 import Placeholder from '../Components/Assets/placeholder.png';
 
 function ViewHealthcareDashboard() {
-    const handleShare = async () => {
-        try {
-          await navigator.share({
-            title: document.title,
-            text: 'Check out my rating profile!',
-            url: window.location.href,
-          });
-          console.log('Profile shared successfully!');
-        } catch (error) {
-          console.error('Error sharing profile:', error);
-        }
-      };
-    
   return (
     <div>
       <div>
@@ -23,41 +10,57 @@ function ViewHealthcareDashboard() {
   </div>
   <div className='view-doctor-dashboard-content'>
   <div className="container">
-        <div className="row">
-          <div className="col-lg-6 col-md-12 mb-4 mb-md-0  d-flex align-items-center justify-content-center card">
+        <div className="col">
+          <div className="row-lg-6 row-md-12 mb-4 mb-md-0  d-flex  justify-content-center card card-rating">
           <div className='rate-header-left d-flex gap-3 p-3 doctorName'>
           <img src={Placeholder} alt="Profile Picture" />
           <div>
             <h2 className="pt-4 pb-0">Healthcare</h2>
-            <p>Average Rating</p>
+            <p>   
+            <i className="fa fa-star font fs-5"></i>
+              Average Rating</p>
           </div>
     </div>
-      <div className="contact-info">
+    <hr className='mx-3'/>
+  
+          </div>
+          <div className="row-lg-6 row-md-12 d-flex flex-row flex-wrap  card p-3 card-rating">
+              <div className="contact-info">
         <ul className="list-unstyled">
           <li>
-            <strong>Name:</strong> John Doe
+            <strong><i class='bx bx-user'></i></strong> Yekatit 12
           </li>
           <li>
-            <strong>Telephone:</strong> 123-456-7890
+            <strong><i class='bx bx-phone'></i></strong> 123-456-7890
           </li>
           <li>
-          <a href="https://www.bing.com/search?q=addis+ababa+hospital+location&cvid=1911003824f1490c82bd0a693c3eede4&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgYICBAAGEDSAQkxMjkxMmowajmoAgCwAgA&FORM=ANAB01&PC=ACTS" target="_blank"><i class="fa fa-map-marker" aria-hidden="true"><strong> Location</strong></i></a>
+            <strong><i class='bx bx-location-plus'></i></strong> lorem, ipsum
           </li>
-          <li>
-            <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue.</strong> 
+          <li className='py-3'>
+          <div className='bio'>
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+            vulputate fringilla. Donec lacinia congue felis in faucibus ras
+            purus odio, vestibulum in vulputate at, tempus viverra turpis.
+          </div>
           </li>
         </ul>
       </div>
-          </div>
-          <div className="col-lg-6 col-md-12 d-flex  justify-content-center card p-3">
-          <div className='rate-box'>
+  
+
+
+    <div className='rate-review-field '>
+    <div className='rate-box'>
     <div className="row">
     <div className="col-md-6">
       <div className="card-rate">
         <div className="card-rate-body ">
-          <h3>Rate this Healthcare</h3>
+          
+          <h4>Rate this Healthcare</h4>
           <h6>Tell others what you think </h6>
-          <fieldset className="rating">
+        <form>
+        <fieldset className="rating">
             <input type="radio" id="star5" name="rating" defaultValue={5} />
             <label className="full" htmlFor="star5" title="Awesome - 5 stars" />
             <input
@@ -141,58 +144,62 @@ function ViewHealthcareDashboard() {
               name="rating"
               defaultValue="reset"
             />
+             
           </fieldset>
+          <div class="form-group">
+                        <h4>Leave a review</h4>
+                        <textarea name="msg" id=""msg cols="30" rows="5" class="form-control"></textarea>
+                    </div>
+        </form>
         </div>
       </div>
     </div>
           </div>
         </div>
-        <div className='review-box'>
-          <h3>Write review</h3>
-            <textarea></textarea>
-        </div>
         <button className='btn btn-primary '>Submit</button>
       </div>
-
-
-    <div className='rate-review-field '>
- 
   </div>
-
 
     </div>
    </div> 
 
 
-  </div>
-  <div className='text-center theReview'>
-    <h1 className='fs-5 pt-3 pb-3'>Reviews</h1>
-    <section className='w-50  mx-auto'>
-      <div className='Reviewer d-flex'>
-        <img src={Placeholder} alt="Profile Picture" />
-        <div>
-          <h2 className='fs-5 p-4'>Some Name</h2>
-          
+  <div className='review-box  d-flex flex-column align-items-center'>
+    <h3 className='p-3 text-center '>Reviews</h3>
+  <div className="container">
+  <div className="row">
+    <div className="col-md-8">
+      <div className="media g-mb-30 media-comment">
+        <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+          <div className="g-mb-15">
+            <h5 className="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
+            <span className="g-color-gray-dark-v4 g-font-size-12">
+            <i className="fa fa-star font fs-5"></i>
+            <i className="fa fa-star font fs-5"></i>
+            <i className="fa fa-star font fs-5"></i>
+            <i className="fa fa-star font fs-5"></i>
+            <i className="fa fa-star font fs-5"></i>
+              
+            </span>
+          </div>
+          <p>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+            vulputate fringilla. Donec lacinia congue felis in faucibus ras
+            purus odio, vestibulum in vulputate at, tempus viverra turpis.
+          </p>
+         
         </div>
       </div>
-      <div className='text-start pb-1'>
-      <hr />
-        <i className="fa fa-star font fs-5"></i>
-        <i className="fa fa-star font fs-5"></i>
-        <i className="fa fa-star font fs-5"></i>
-        <i className="fa fa-star font fs-5"></i>
-        <i className="fa fa-star font fs-5"></i>
-      </div>
-      <div>
-        <p>Sara ma gurlll ererer tmechignalesh m name is very good. I have many places to be.</p>
-      </div>
-      <div>
-        <p className='text-start'>Date: </p>
-        <hr />
-        <button id='shareButton' onClick={handleShare}><i class="fa fa-share-alt" > Share</i></button>
-      </div>
-    </section>
+    </div>
   </div>
+</div>
+
+
+  </div>
+  
+</div>
     </div>
   )
 }

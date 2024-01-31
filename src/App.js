@@ -21,6 +21,8 @@ import PdashboardHrate from './Pages/PdashboardHrate';
 import ViewDoctorDashboard from './Pages/ViewDoctorDashboard';
 import ViewHealthcareDashboard from './Pages/ViewHealthcareDashboard';
 import ForgotPassword from './Pages/ForgotPassword';
+import UpdateMedicalRecord from "./Pages/UpdateMedicalRecord";
+import ViewMyRating from "./Pages/ViewMyRating";
 function App() {
   
   return (
@@ -33,7 +35,7 @@ function App() {
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="*" element={<NoPage />}></Route>
           <Route path="/patient-dashboard" element={<PatientDashboard />}></Route>
-          <Route path="/doctor-dashboard" element={<DoctorDashboard />}></Route>
+          <Route path="/physician-dashboard" element={<DoctorDashboard />}></Route>
           <Route path="/FAQ" element={<FAQ />}></Route>
           <Route path="/doctor-rating" element={<DoctorRating/>}></Route>
           <Route path="/view-doctor" element={<ViewDoctor/>}></Route>
@@ -48,6 +50,9 @@ function App() {
           <Route path='/view-doctor-dashboard' element={<ViewDoctorDashboard />}></Route>
           <Route path='/view-healthcare-dashboard' element={<ViewHealthcareDashboard />}></Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+          <Route path="/update-medical-record"element={<UpdateMedicalRecord />}></Route>
+          <Route path="/view-my-rating"element={<ViewMyRating />}></Route>
+          <Route path="/supportDoc"element={<SupportDoc   />}></Route>
         </Routes>
       </BrowserRouter>
   

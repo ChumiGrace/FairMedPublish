@@ -628,6 +628,22 @@
   margin-bottom: 50px;
  }
  
+ 
+ .testimonials .card{
+    
+  border:none;
+}
+
+.user-content p{
+  margin-top:5px;
+  font-size:12px;
+}
+
+
+.testimonials  i{
+  color:blue;
+}
+
 
 
 
@@ -1035,9 +1051,13 @@ h5 {
 }
 
 .medical-record-form {
-  display: grid;
-  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 30em;
 }
+
 
 .medical-record-form label {
   font-weight: bold;
@@ -1069,10 +1089,6 @@ h5 {
 .medical-record-form button[type="submit"]:hover {
   background-color: #0056b3;
 }
-
-
-
-
 
 .floating-container {
   position: fixed;
@@ -1131,6 +1147,25 @@ h5 {
 }
 
 
+.medical-record-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.medical-record-form-container {
+  max-height: 80vh; 
+  overflow-y:auto; 
+}
+
+
 /**************************************view doctor dashboard***************/
 .view-doctor-dashboard-content {
   padding:4% ;
@@ -1141,7 +1176,7 @@ h5 {
 
 .rating { 
       border: none;
-      margin-right: 49px;
+      margin-right: 30%;
 }
 .myratings{
 
@@ -1182,14 +1217,6 @@ h5 {
 display: none;
 }
 
-.reset-button {
-margin: 6px 12px;
-background-color: rgb(255, 255, 255);
-text-transform: uppercase;
-}
-
-
-
 .mt-100 {
      margin-top: 100px
  }
@@ -1204,113 +1231,13 @@ text-transform: uppercase;
      background-color: #fff;
  }
 
- .card-rate .card-rate-body {
-     padding: 1rem 1rem
- }
 
  .card-rate-body {
      flex: 1 1 auto;
-     padding: 1.25rem
  }
 
- .rate-box p {
-     font-size: 14px
- }
-
- .rate-box h4 {
-     margin-top: 18px
- }
-
- .rate-box .btn:focus {
-     outline: none
- }
-
- .rate-box .btn {
-     border-radius: 22px;
-     text-transform: capitalize;
-     font-size: 13px;
-     padding: 8px 19px;
-     cursor: pointer;
-     color: #fff;
-     background-color: #D50000
- }
-
- .rate-box .btn:hover {
-     background-color: #D32F2F !important
- }
-
- .review-number {
-  float: left;
-  width: 35px;
-  line-height: 1;
-}
-
-.review-number div {
-  height: 9px;
-  margin: 5px 0
-}
-
-.review-progress {
-  float: left;
-  width: 230px;
-}
-
-.review-progress .progress {
-  margin: 8px 0;
-}
-
-.progress-number {
-  margin-left: 10px;
-  float: left;
-}
-
-.rating-block,
-.review-block {
-  background-color: #fff;
-  border: 1px solid #e1e6ef;
-  padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.review-block {
-  margin-bottom: 20px;
-}
-
-.review-block-img img {
-  height: 60px;
-  width: 60px;
-}
-
-.review-block-name {
-  font-size: 12px;
-  margin: 10px 0;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.review-block-name a {
-  color: #374767;
-}
-
-.review-block-date {
-  font-size: 12px;
-}
-
-.review-block-rate {
-  font-size: 13px;
-  margin-bottom: 15px;
-}
-
-.review-block-title {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.review-block-description {
-  font-size: 13px;
+.card-rating{
+  gap: 10%;
 }
 
 
@@ -1321,7 +1248,59 @@ text-transform: uppercase;
 .top{
 gap:40%;
 }
-/* **********************************   DASHBOARD ************************************************************* */
+
+.card-rating{
+  border: 0;
+}
+@media (min-width: 0) {
+  .g-mr-15 {
+      margin-right: 1.07143rem !important;
+  }
+}
+@media (min-width: 0){
+  .g-mt-3 {
+      margin-top: 0.21429rem !important;
+  }
+}
+
+.g-height-50 {
+  height: 50px;
+}
+
+.g-width-50 {
+  width: 50px !important;
+}
+
+@media (min-width: 0){
+  .g-pa-30 {
+      padding: 2.14286rem !important;
+  }
+}
+
+.g-bg-secondary {
+  background-color: #fafafa !important;
+}
+
+.u-shadow-v18 {
+  box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+}
+
+.g-color-gray-dark-v4 {
+  color: #777 !important;
+}
+
+.g-font-size-12 {
+  font-size: 0.85714rem !important;
+}
+
+.media-comment {
+  margin-top:20px
+}
+
+.bio{
+  width: 400px;
+}
+/* **********************************   forgot password ************************************************************* */
 .forgotPassword-container{
   height: 100vh;
 

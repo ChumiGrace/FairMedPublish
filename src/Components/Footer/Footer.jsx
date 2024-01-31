@@ -50,7 +50,7 @@ function Footer() {
     </div>
     <hr className='text-white'></hr>
     <div className='copyright'>
-      <p>&copy; 2024 Your Medical Record System. All rights reserved.</p>
+      <p>&copy; 2024 Fairmed. All rights reserved.</p>
     </div>
   </footer>
 </div>

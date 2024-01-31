@@ -3,6 +3,8 @@ import Footer from "../Components/Footer/Footer"
 import { useState } from "react";
 import React from 'react'
 import './style.css'
+import Placeholder from '../Components/Assets/placeholder.png';
+
 
 function Home() {
   const [activeTab, setActiveTab] = useState(0);
@@ -192,61 +194,76 @@ function Home() {
       </div>
      </div>
     </div>
+    <div className="container mt-5 mb-5 testimonials py-5">
+      <h1 className="text-center">What our users say</h1>
+  <div className="row g-2">
+    <div className="col-md-4">
+      <div className="card p-3 text-center px-4">
+        <div className="user-image">
+          <img
+            src={Placeholder}
+            className="rounded-circle"
+            width={80}
+          />
+        </div>
+        <div className="user-content">
+          <h5 className="mb-0">Bruce Hardy</h5>
+          <p>
+          <i class='bx bxs-quote-alt-left'></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. <i class='bx bxs-quote-alt-right' ></i>
+          </p>
+        </div>
+        
+      </div>
+    </div>
+    <div className="col-md-4">
+      <div className="card p-3 text-center px-4">
+        <div className="user-image">
+          <img
+            src={Placeholder}
+            className="rounded-circle"
+            width={80}
+          />
+        </div>
+        <div className="user-content">
+          <h5 className="mb-0">Mark Smith</h5>
+          <p>
+          <i class='bx bxs-quote-alt-left'></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. <i class='bx bxs-quote-alt-right' ></i>
+          </p>
+        </div>
+      
+      </div>
+    </div>
+    <div className="col-md-4">
+      <div className="card p-3 text-center px-4">
+        <div className="user-image">
+          <img
+            src={Placeholder}
+            className="rounded-circle"
+            width={80}
+          />
+        </div>
+        <div className="user-content">
+          <h5 className="mb-0">Veera Duncan</h5>
+          <p>
+          <i class='bx bxs-quote-alt-left'></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. <i class='bx bxs-quote-alt-right' ></i>
+          </p>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</div>
 
-    <h5 className="article">Trending Articles</h5>
-    <hr></hr>
-    <article id="homearticle">
-      <div className="scroll">
-        <a
-          href="https://www.practo.com/healthfeed/10-foods-to-improve-your-bad-mood-5957/post"
-          target="_blank"
-        >
-          {" "}
-          <img src="https://www.practostatic.com/fit/1da3446c1aca11295e4ea403b52fe8bc80b4c7c1" />{" "}
-        </a>
-        <p> Ten foods to improve your bad mood</p>
-      </div>
-      <div className="scroll">
-        <a
-          href="https://www.practo.com/healthfeed/10-remedies-to-get-pink-lips-naturally-19132/post"
-          target="_blank"
-        >
-          {" "}
-          <img src="https://www.practostatic.com/fit/68a54802e88767ea167e7e10f026c4241fe81b22" />{" "}
-        </a>
-        <p>Lips health</p>
-      </div>
-      <div className="scroll">
-        <a
-          href="https://www.practo.com/healthfeed/the-perfect-routine-lose-weight-throughout-the-day-everyday-3716/post"
-          target="_blank"
-        >
-          {" "}
-          <img src="https://www.practostatic.com/fit/547070a87697a72094abe97777a58e4fb5657aeb" />{" "}
-        </a>
-        <p>The Perfect Routine - Lose Weight Throughout the Day, Everyday!</p>
-      </div>
-      <div className="scroll">
-        <a
-          href="https://www.practostatic.com/fit/f73e8ad60ca3d2814ff19d3980abee7b6386d394"
-          target="_blank"
-        >
-          {" "}
-          <img src="https://www.practostatic.com/fit/d46f62b4758748341004b3492b82f5fb16adac52" />{" "}
-        </a>
-        <p>Get rid of headaches</p>
-      </div>
-      <div className="scroll">
-        <a
-          href="https://www.practo.com/healthfeed/5-foods-that-boost-immunity-157/post"
-          target="_blank"
-        >
-          {" "}
-          <img src="https://www.practostatic.com/fit/00b257b8daaecaa9b124672dbabce89426b0d9f4" />{" "}
-        </a>
-        <p>Foods to boost immunity</p>
-      </div>
-    </article>
+          
     </main>
     <div>
     <Footer />

@@ -25,10 +25,6 @@ function SupportDoc() {
                  <p>In the "My Ratings" section, you can find ratings from your patients.  In this section, patients leave their ratings which will be displayed as an average rating for you. </p>
                </li>
                <li>
-                 <h2>My Reviews</h2>
-                 <p>In this section you will find the feedbacks from the patients treated by you. Every patient gets a chance to rate and review their doctors and this comments will be displayed in this section. </p>
-               </li>
-               <li>
                  <h2>Support</h2>
                  <p>If you require assistance or have questions about using the dashboard, navigate to the "Support" section. Fill out the support form with your name, email, and message describing the issue or query you have. Submit the form, and our support team will get back to you as soon as possible.</p>
                </li>
@@ -45,3 +41,4 @@ function SupportDoc() {
      }
 
 export default SupportDoc
+
