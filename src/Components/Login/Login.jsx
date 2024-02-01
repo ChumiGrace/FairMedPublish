@@ -13,9 +13,9 @@ function Login() {
   
   
   const [formData, setFormData] = useState({
-    email: '',
-    phone: '',
-    password: '',
+    email: null,
+    phone: null,
+    password: null,
   });
   
   console.log(formData)

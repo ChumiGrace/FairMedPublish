@@ -6,6 +6,7 @@ import Footer from "../Components/Footer/Footer";
 
 function HealthcareRating() {
   const url = `http://localhost:8000/hcs_reviews_rates/`;
+  const [query, setQuery] = useState("");
   const [fetchedData, setFetchedData] = useState([]);
 
   useEffect(() => {
@@ -28,6 +29,29 @@ function HealthcareRating() {
   }, [url]);
 
   console.log(fetchedData);
+
+  const sendSearch = async () => {
+    const res = await fetch(
+      `http://localhost:8000/hcs_reviews_rates/?search=${query}`
+    );
+    if (!res.ok) {
+      throw new Error(`HTTP Error! Status: ${res.status}`);
+    } else {
+      const data = await res.json();
+      setFetchedData(data);
+    }
+  };
+  console.log(fetchedData);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    sendSearch();
+  };
 
   const identifyUser = async (event) => {
     localStorage.setItem("profileId", event.name);
@@ -83,7 +107,14 @@ function HealthcareRating() {
       <div className="search container d-flex gap-5">
         <div className="searchBar-container">
           <i className="fa fa-search" id="searchIcon" />
-          <input className="searchInput" placeholder="Type to search...." />
+          <form onSubmit={handleSearch}>
+            <input
+              className="searchInput"
+              onChange={handleSearchChange}
+              placeholder="Type to search...."
+            />
+            <button type="submit">Search</button>
+          </form>
         </div>
         <div className="advertiseHealthcare">
           <a href="/contact">Advertise your healthcare</a>

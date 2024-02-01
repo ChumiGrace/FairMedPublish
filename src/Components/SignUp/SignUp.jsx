@@ -275,19 +275,20 @@ function SignUp() {
                       <label htmlFor="floatingAddress">Address</label>
                     </div>
                     {isDoctor && (
-                      <div className=" mb-3">
-                         <label htmlFor="uploadLicense" className="form-label text-white">Upload License</label>
-                        <input
-                          type="file"
-                          disabled={activeButton ? false : true}
-                          className="form-control"
-                          id="uploadLicense"
-                          placeholder="Upload License"
-                          onChange={handleChange}
-                        />
-                        {errors.uploadFile && <span className="text-danger">{errors.uploadFile}</span>}
+                      <div></div>
+                      // <div className=" mb-3">
+                      //    <label htmlFor="uploadLicense" className="form-label text-white">Upload License</label>
+                      //   <input
+                      //     type="file"
+                      //     disabled={activeButton ? false : true}
+                      //     className="form-control"
+                      //     id="uploadLicense"
+                      //     placeholder="Upload License"
+                      //     onChange={handleChange}
+                      //   />
+                      //   {errors.uploadFile && <span className="text-danger">{errors.uploadFile}</span>}
                        
-                      </div>
+                      // </div>
                     )}
 
                     <div className="d-grid">

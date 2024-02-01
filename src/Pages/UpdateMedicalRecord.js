@@ -3,8 +3,7 @@ import Sidebardoc from "../Components/Sidebar/Sidebardoc";
 import "./style.css";
 
 function UpdateMedicalRecord() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [bloodType, setBloodType] = useState("");
@@ -23,7 +22,7 @@ function UpdateMedicalRecord() {
 
   const formData = {
     id: user.id,
-    name: firstName + " " + lastName,
+    name: name,
     age: age,
     gender: gender,
     bloodType: bloodType,
@@ -108,6 +107,8 @@ function UpdateMedicalRecord() {
           });
 
           setIsAuthorized(true);
+          pastMedRecs();
+          setName(user.name);
         }
       } catch (error) {
         alert(error);
@@ -140,7 +141,7 @@ function UpdateMedicalRecord() {
   };
   console.log(user);
 
-  const dataId = { id: user.id };
+  const [dataId, setDataId] = useState({ id: user.id });
   async function pastMedRecs() {
     const res = await fetch(view_url, {
       method: "POST",
@@ -159,6 +160,7 @@ function UpdateMedicalRecord() {
     } catch (error) {
       alert(`Server error: ${error}`);
       setIsFormVisible(false);
+      setShowRec(false);
     }
   }
 
@@ -169,7 +171,6 @@ function UpdateMedicalRecord() {
 
   const handleButtonClick = async () => {
     setIsFormVisible(!isFormVisible);
-    pastMedRecs();
     setShowRec(true);
     fetchPhysician();
   };
@@ -245,21 +246,8 @@ function UpdateMedicalRecord() {
                 >
                   <h2 className="medical-record-name">Medical Record Form</h2>
                   <div className="form-group">
-                    <label>First Name:</label>
-                    <input
-                      type="text"
-                      value={user.name}
-                      disabled={true}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Last Name:</label>
-                    <input
-                      type="text"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
+                    <label>Name:</label>
+                    <input type="text" value={user.name} disabled={true} />
                   </div>
                   <div className="form-group">
                     <label>Age:</label>

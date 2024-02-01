@@ -6,6 +6,7 @@ import Footer from "../Components/Footer/Footer";
 
 function DoctorRating() {
   const url = `http://localhost:8000/physicians_reviews_rates/`;
+  const [query, setQuery] = useState("");
   const [fetchedData, setFetchedData] = useState([]);
 
   useEffect(() => {
@@ -27,7 +28,30 @@ function DoctorRating() {
     fetchData();
   }, [url]);
 
+  const sendSearch = async () => {
+    const res = await fetch(
+      `http://localhost:8000/physicians_reviews_rates/?search=${query}`
+    );
+    if (!res.ok) {
+      throw new Error(`HTTP Error! Status: ${res.status}`);
+    } else {
+      const data = await res.json();
+      setFetchedData(data);
+    }
+  };
   console.log(fetchedData);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    sendSearch();
+  };
+
+  console.log(query);
 
   const Card = ({ user }) => (
     <section className="mt-5 container doctorProfile-container">
@@ -78,7 +102,14 @@ function DoctorRating() {
       <div className="search ">
         <div className="searchBar-container">
           <i className="fa fa-search" id="searchIcon" />
-          <input className="searchInput" placeholder="Type to search...." />
+          <form onSubmit={handleSearch}>
+            <input
+              className="searchInput"
+              onChange={handleSearchChange}
+              placeholder="Type to search...."
+            />
+            <button type="submit">Search</button>
+          </form>
         </div>
       </div>
       <CardComponent />
