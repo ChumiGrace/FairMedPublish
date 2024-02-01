@@ -16,7 +16,7 @@ function LogoutPopup({ onConfirm, onCancel }) {
   );
 }
 
-function Sidebar() {
+function Sidebar( { id } ) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -79,9 +79,9 @@ function Sidebar() {
                 <i className="bx bx-id-card nav_icon"></i>
                 <span className="nav_name">Medical Record</span>
               </a>
-              <a href="/view-my-rating" className="nav_link " onClick={handleLinkClick}>
+              <a href={`/view-my-rating/${id}`} className="nav_link " onClick={handleLinkClick}>
                 <i className="bx bx bx-star"></i>
-                <span className="nav_name">Rate and Review Doctor</span>
+                <span className="nav_name">My Rates and Reviews</span>
               </a>
               <a href="/supportDoc" className="nav_link " onClick={handleLinkClick}>
                 <i className="bx bx-question-mark nav_icon"></i>

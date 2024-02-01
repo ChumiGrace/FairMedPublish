@@ -23,6 +23,7 @@ import ViewHealthcareDashboard from "./Pages/ViewHealthcareDashboard";
 import ForgotPassword from "./Pages/ForgotPassword";
 import UpdateMedicalRecord from "./Pages/UpdateMedicalRecord";
 import ViewMyRating from "./Pages/ViewMyRating";
+import ViewHealthcare from "./Pages/ViewHealthcare";
 function App() {
   return (
     <div>
@@ -65,11 +66,11 @@ function App() {
             element={<PdashboardHrate />}
           ></Route>
           <Route
-            path="/view-doctor-dashboard"
+            path="/view-doctor-dashboard/:id"
             element={<ViewDoctorDashboard />}
           ></Route>
           <Route
-            path="/view-healthcare-dashboard"
+            path="/view-healthcare-dashboard/:id"
             element={<ViewHealthcareDashboard />}
           ></Route>
           <Route path="/forgot-password" element={<ForgotPassword />}></Route>
@@ -77,8 +78,12 @@ function App() {
             path="/update-medical-record"
             element={<UpdateMedicalRecord />}
           ></Route>
-          <Route path="/view-my-rating" element={<ViewMyRating />}></Route>
+          <Route path="/view-my-rating/:id" element={<ViewMyRating />}></Route>
           <Route path="/supportDoc" element={<SupportDoc />}></Route>
+          <Route
+            path="/view-healthcare/:id"
+            element={<ViewHealthcare />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -102,7 +102,7 @@ function ViewDoctor() {
   return (
     <div>
       <div>
-        <Sidebar />
+        <Header />
       </div>
       <div className="main doctorName d-flex">
         <img src={Placeholder} alt="Profile Picture" />

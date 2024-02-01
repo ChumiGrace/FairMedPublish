@@ -51,11 +51,12 @@ function HealthcareRating() {
         <div>
           <button
             type="button"
-            onClick={identifyUser}
-            name={user.id}
-            class="btn btn-danger  btn-lg mt-3 w-100 rounded"
+            className="btn btn-danger  btn-lg mt-3 w-100 rounded"
           >
-            <a className="text-decoration-none text-black" href="#">
+            <a
+              className="text-decoration-none text-black"
+              href={`/view-healthcare/${user.id}`}
+            >
               View Profile
             </a>
           </button>

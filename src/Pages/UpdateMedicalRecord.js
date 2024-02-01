@@ -12,6 +12,7 @@ function UpdateMedicalRecord() {
   const [medications, setMedications] = useState("");
   const [notes, setNotes] = useState("");
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [sendD, setSendD] = useState({ phyId: localStorage.getItem("id") });
 
   const [user, setUser] = useState({
     id: "",
@@ -33,33 +34,83 @@ function UpdateMedicalRecord() {
 
   const fetch_url = `http://localhost:8000/records/create/`;
   const view_url = `http://localhost:8000/records/view/`;
+  const send_url = `http://localhost:8000/records/sendid/`;
   const [isAuthorized, setIsAuthorized] = useState(false);
   const token = localStorage.getItem("access_token");
+  const id = localStorage.getItem("id");
   const [showRec, setShowRec] = useState(false);
+  const phy_url = `http://localhost:8000/physician_profile/${id}/`;
+
+  window.addEventListener("beforeunload", function (e) {
+    const confirmationMessage =
+      "You have unsaved changes or need authorization. Are you sure you want to leave?";
+    e.returnValue = confirmationMessage;
+    return confirmationMessage;
+  });
+
+  useEffect(() => {
+    const senId = async () => {
+      try {
+        const res = await fetch(send_url, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(sendD),
+        });
+        if (!res.ok) {
+          throw new Error(`HTTP Error! Status: ${res.status}`);
+        } else {
+          const data = await res.json();
+          console.log(data);
+        }
+      } catch (error) {
+        alert(error);
+      }
+    };
+    senId();
+  }, []);
+
+  const fetchPhysician = async () => {
+    const res = await fetch(phy_url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP Error! Status: ${res.status}`);
+    } else {
+      const data = await res.json();
+      console.log(data);
+    }
+  };
 
   useEffect(() => {
     const getUser = async () => {
-      const res = await fetch(fetch_url, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!res.ok) {
-        throw new Error(`HTTP Error! Status: ${res.status}`);
-      } else {
-        const data = await res.json();
-        // console.log(data);
-        setUser({
-          ...user,
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
+      try {
+        const res = await fetch(fetch_url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-        // console.log(user);
+        if (!res.ok) {
+          throw new Error(`HTTP Error! Status: ${res.status}`);
+        } else {
+          const data = await res.json();
+          setUser({
+            ...user,
+            id: data.id,
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+          });
 
-        setIsAuthorized(true);
+          setIsAuthorized(true);
+        }
+      } catch (error) {
+        alert(error);
       }
     };
     getUser();
@@ -76,16 +127,20 @@ function UpdateMedicalRecord() {
       },
       body: JSON.stringify(formData),
     });
-    if (!res.ok) {
-      throw new Error(`HTTP Error! Status: ${res.status}`);
-    } else {
-      const data = await res.json();
-      alert(`You have successfuly created A record!${data}`);
+    try {
+      if (!res.ok) {
+        throw new Error(`HTTP Error! Status: ${res.status}`);
+      } else {
+        const data = await res.json();
+        alert(`You have successfuly created A record!${data}`);
+      }
+    } catch (error) {
+      alert(`Server error: ${error}`);
     }
   };
   console.log(user);
 
-  const data = { id: user.id };
+  const dataId = { id: user.id };
   async function pastMedRecs() {
     const res = await fetch(view_url, {
       method: "POST",
@@ -93,12 +148,17 @@ function UpdateMedicalRecord() {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(dataId),
     });
-    if (!res.ok) {
-      throw new Error("HTTP Error!");
-    } else {
-      console.log(await res.json());
+    try {
+      if (!res.ok) {
+        throw new Error("HTTP Error!");
+      } else {
+        console.log(await res.json());
+      }
+    } catch (error) {
+      alert(`Server error: ${error}`);
+      setIsFormVisible(false);
     }
   }
 
@@ -109,8 +169,9 @@ function UpdateMedicalRecord() {
 
   const handleButtonClick = async () => {
     setIsFormVisible(!isFormVisible);
-    pastMedRecs();
+    // pastMedRecs();
     setShowRec(true);
+    fetchPhysician();
   };
 
   const [showModal, setShowModal] = useState(false);

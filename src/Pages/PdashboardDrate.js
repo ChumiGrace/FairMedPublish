@@ -53,7 +53,7 @@ function PdashboardDrate() {
           >
             <a
               className="text-decoration-none text-black"
-              href={`/view-doctor/${user.id}`}
+              href={`/view-doctor-dashboard/${user.id}`}
             >
               View Profile
             </a>

@@ -54,6 +54,7 @@ function Login() {
 
 
   const loginUser = async () => {
+    try{
     const response = await fetch(log_url, {
       method: 'POST',
       headers: {
@@ -75,6 +76,9 @@ function Login() {
       } else {
         return false
       }
+    }catch(error){
+      alert(error)
+    }
   }
 
 

@@ -5,27 +5,32 @@ import Sidebardoc from "../Components/Sidebar/Sidebardoc";
 function DoctorDashboard() {
   const [data, setData] = useState([]);
   const token = localStorage.getItem("access_token");
-  const id = localStorage.getItem("id");
+  const [id, setId] = useState(localStorage.getItem("id"));
+  console.log(id);
   const url = `http://localhost:8000/physician/${id}/`;
 
   useEffect(() => {
-    fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP Error! Status: ${res.status}`);
-        } else {
-          return res.json();
-        }
+    try {
+      fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       })
-      .then((data) => {
-        setData(JSON.parse(data.recent_reviews));
-      });
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`HTTP Error! Status: ${res.status}`);
+          } else {
+            return res.json();
+          }
+        })
+        .then((data) => {
+          setData(JSON.parse(data.recent_reviews));
+        });
+    } catch (error) {
+      alert(error);
+    }
   }, [token, url]);
 
   console.log(data);
@@ -78,7 +83,7 @@ function DoctorDashboard() {
   return (
     <div className="con">
       <div className="sidebar-container">
-        <Sidebardoc acc="physician" />
+        <Sidebardoc id={id} />
       </div>
       <div className="dashboard-maincontent d-flex justify-content-evenly flex-wrap ">
         <div className="patient-recent-activity">
@@ -93,7 +98,7 @@ function DoctorDashboard() {
         </div>
 
         <div className="profile">
-          <Profile user="physician_profile" />
+          <Profile profile="physician_profile" />
         </div>
       </div>
     </div>

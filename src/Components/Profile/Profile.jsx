@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 
 
-const Profile = () => {
+const Profile = ({ profile }) => {
   const ProfileSection = () => {
     const [isBordered, setIsBordered] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -20,10 +20,10 @@ const Profile = () => {
     const [data, setData] = useState({});
   const id = localStorage.getItem("id");
   const token = localStorage.getItem("access_token");
-  const url = `http://127.0.0.1:8000/patient_profile/${id}/`;
+  const url = `http://127.0.0.1:8000/${profile}/${id}/`;
 
   useEffect(()=>{
-
+    try{
     const fetchData = async () => {
       const res = await fetch(url, {
         method: "GET",
@@ -39,8 +39,10 @@ const Profile = () => {
         setData({ ...data, 'userData':data });
       }
     };
-
     fetchData()
+  } catch(error) {
+    alert(error)
+    }
   }, [token, url])
     console.log(data);
   useEffect(() => {
@@ -161,12 +163,10 @@ const Profile = () => {
         alt="..."
       />
       <h4 className="title">
-        John Doe
       </h4>
     </div>
     <div className='text-center'>
     <button className="avatar-choice text-center btn btn-outline-dark">
-      change your avatar
     </button>
     </div>
 

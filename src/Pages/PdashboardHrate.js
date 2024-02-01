@@ -26,11 +26,6 @@ function PdashboardHrate() {
 
   console.log(fetchedData);
 
-  const identifyUser = async (event) => {
-    localStorage.setItem("profileId", event.target.name);
-    console.log(event.target);
-  };
-
   const Card = ({ user }) => (
     <section className="mt-5 container doctorProfile-container">
       <div className="container p-3 text-center">
@@ -52,7 +47,7 @@ function PdashboardHrate() {
         >
           <a
             className="text-decoration-none text-black"
-            href={`/view-doctor/${user.id}`}
+            href={`/view-healthcare-dashboard/${user.id}`}
           >
             View Profile
           </a>
