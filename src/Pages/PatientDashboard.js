@@ -3,14 +3,6 @@ import Profile from "../Components/Profile/Profile";
 import Sidebar from "../Components/Sidebar/Sidebar";
 
 function PatientDashboard() {
-  const socket = new WebSocket("ws://your-backend-domain/ws/arduino/");
-
-  socket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    console.log("Data received from backend:", data);
-    // Update your frontend UI with the received data
-  };
-
   const [data, setData] = useState([]);
   const [medRec, setMedRec] = useState([]);
   const token = localStorage.getItem("access_token");

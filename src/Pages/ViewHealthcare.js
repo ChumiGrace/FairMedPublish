@@ -27,7 +27,7 @@ function ViewHealthcare() {
   useEffect(() => {
     const fetchUserData = async (userId) => {
       const res = await fetch(
-        `http://localhost:8000/physicians_reviews_rates/${userId}/`
+        `http://localhost:8000/hcs_reviews_rates/${userId}/`
       );
       if (!res.ok) {
         throw new Error(`HTTP Error! Status: ${res.status}`);

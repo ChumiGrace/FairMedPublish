@@ -8,6 +8,63 @@ function ViewHealthcareDashboard() {
   const { id } = useParams();
   const [recentReviews, setRecentReviews] = useState([]);
   const [access, setAccess] = useState(false);
+  const patId = localStorage.getItem("id");
+  const [allowRate, setAllowRate] = useState(false);
+  const token = localStorage.getItem("access_token");
+  const [phyId, setPhyId] = useState("");
+  const [hcId, setHcId] = useState("");
+  const [allowed, setAllowed] = useState("");
+  const [rateData, setRateData] = useState({
+    hc_id: id,
+    patient_id: patId,
+    rate: 3,
+    review: "",
+    entity_type: "health_center",
+  });
+  const pat_url = `http://127.0.0.1:8000/patient_profile/${patId}/`;
+  const stars = document.querySelectorAll('.rating input[type="radio"]');
+  function handleRatingClick(event) {
+    const rating = event.target.value;
+    setRateData({
+      ...rateData,
+      rate: rating,
+    });
+  }
+
+  stars.forEach((star) => {
+    star.addEventListener("click", handleRatingClick);
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRateData({
+      ...rateData,
+      [name]: value,
+    });
+  };
+
+  const reviewSubmit = async () => {
+    const res = await fetch(`http://127.0.0.1:8000/review/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rateData),
+    });
+    if (!res.ok) {
+      throw new Error("HTTP Error!");
+    } else {
+      const data = await res.json();
+      console.log(data);
+    }
+  };
+
+  const handleSubmit = () => {
+    reviewSubmit();
+    const form = document.getElementById("rate-form");
+    form.reset();
+    window.location.reload();
+  };
 
   const handleShare = async () => {
     try {
@@ -23,6 +80,18 @@ function ViewHealthcareDashboard() {
   };
 
   useEffect(() => {
+    try {
+      if (hcId === parseInt(id)) {
+        setAllowRate(true);
+      } else {
+        setAllowRate(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [id, allowed]);
+
+  useEffect(() => {
     const fetchUserData = async (userId) => {
       const res = await fetch(
         `http://localhost:8000/hcs_reviews_rates/${userId}/`
@@ -36,6 +105,39 @@ function ViewHealthcareDashboard() {
     };
     fetchUserData(id);
   }, [id]);
+
+  useEffect(() => {
+    const fetchPatient = async () => {
+      const res = await fetch(pat_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP Error! ${res.status}`);
+      } else {
+        const data = await res.json();
+        console.log(data.allowed_phy);
+        setAllowed(data.allowed_phy);
+        setPhyId(data.allowed_phy);
+      }
+    };
+    fetchPatient();
+  }, [pat_url, token]);
+
+  useEffect(() => {
+    const getPhysician = async () => {
+      const res = await fetch(
+        `http://localhost:8000/physicians_reviews_rates/${phyId}/`
+      );
+      if (!res.ok) {
+        throw new Error("HTTP Error");
+      } else {
+        const data = await res.json();
+        setHcId(data.hcId);
+      }
+    };
+  });
 
   useEffect(() => {
     if (profileData.reviews) {
@@ -148,18 +250,19 @@ function ViewHealthcareDashboard() {
                 </ul>
               </div>
 
-              <div className="rate-review-field ">
+              <divv className="rate-review-field ">
                 <div className="rate-box">
                   <div className="row">
                     <div className="col-md-6">
                       <div className="card-rate">
                         <div className="card-rate-body ">
-                          <h4>Rate this Healthcare</h4>
+                          <h4>Rate this doctor</h4>
                           <h6>Tell others what you think </h6>
-                          <form>
+                          <form id="rate-form">
                             <fieldset className="rating">
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star5"
                                 name="rating"
                                 defaultValue={5}
@@ -171,6 +274,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star4half"
                                 name="rating"
                                 defaultValue="4.5"
@@ -182,6 +286,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star4"
                                 name="rating"
                                 defaultValue={4}
@@ -193,6 +298,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star3half"
                                 name="rating"
                                 defaultValue="3.5"
@@ -204,6 +310,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star3"
                                 name="rating"
                                 defaultValue={3}
@@ -215,6 +322,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star2half"
                                 name="rating"
                                 defaultValue="2.5"
@@ -226,6 +334,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star2"
                                 name="rating"
                                 defaultValue={2}
@@ -237,6 +346,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star1half"
                                 name="rating"
                                 defaultValue="1.5"
@@ -248,6 +358,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star1"
                                 name="rating"
                                 defaultValue={1}
@@ -259,6 +370,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="starhalf"
                                 name="rating"
                                 defaultValue="0.5"
@@ -270,6 +382,7 @@ function ViewHealthcareDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 className="reset-option"
                                 name="rating"
                                 defaultValue="reset"
@@ -278,10 +391,17 @@ function ViewHealthcareDashboard() {
                             <div class="form-group">
                               <h4>Leave a review</h4>
                               <textarea
-                                name="msg"
+                                name="review"
+                                onChange={handleChange}
                                 id=""
+                                placeholder={
+                                  allowRate
+                                    ? ""
+                                    : "You are not allowed to rate!"
+                                }
                                 msg
                                 cols="30"
+                                disabled={allowRate ? false : true}
                                 rows="5"
                                 class="form-control"
                               ></textarea>
@@ -292,8 +412,14 @@ function ViewHealthcareDashboard() {
                     </div>
                   </div>
                 </div>
-                <button className="btn btn-primary ">Submit</button>
-              </div>
+                <button
+                  onClick={handleSubmit}
+                  disabled={allowRate ? false : true}
+                  className="btn btn-primary "
+                >
+                  Submit
+                </button>
+              </divv>
             </div>
           </div>
         </div>

@@ -169,7 +169,7 @@ function UpdateMedicalRecord() {
 
   const handleButtonClick = async () => {
     setIsFormVisible(!isFormVisible);
-    // pastMedRecs();
+    pastMedRecs();
     setShowRec(true);
     fetchPhysician();
   };

@@ -10,10 +10,40 @@ function ViewDoctorDashboard() {
   const [access, setAccess] = useState(false);
   const [allowRate, setAllowRate] = useState(false);
   const patId = localStorage.getItem("id");
+  const token = localStorage.getItem("access_token");
+  const [allowed, setAllowed] = useState("");
+  const [rateData, setRateData] = useState({
+    physician_id: id,
+    patient_id: patId,
+    rate: 3,
+    review: "",
+    entity_type: "physician",
+  });
+  const pat_url = `http://127.0.0.1:8000/patient_profile/${patId}/`;
+  const stars = document.querySelectorAll('.rating input[type="radio"]');
+  function handleRatingClick(event) {
+    const rating = event.target.value;
+    setRateData({
+      ...rateData,
+      rate: rating,
+    });
+  }
+
+  stars.forEach((star) => {
+    star.addEventListener("click", handleRatingClick);
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRateData({
+      ...rateData,
+      [name]: value,
+    });
+  };
 
   useEffect(() => {
     try {
-      if (patId === id) {
+      if (allowed === parseInt(id)) {
         setAllowRate(true);
       } else {
         setAllowRate(false);
@@ -21,7 +51,48 @@ function ViewDoctorDashboard() {
     } catch (error) {
       console.log(error);
     }
-  }, [id, patId]);
+  }, [id, allowed]);
+
+  const reviewSubmit = async () => {
+    const res = await fetch(`http://127.0.0.1:8000/review/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rateData),
+    });
+    if (!res.ok) {
+      throw new Error("HTTP Error!");
+    } else {
+      const data = await res.json();
+      console.log(data);
+    }
+  };
+
+  const handleSubmit = () => {
+    reviewSubmit();
+    const form = document.getElementById("rate-form");
+    form.reset();
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const fetchPatient = async () => {
+      const res = await fetch(pat_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP Error! ${res.status}`);
+      } else {
+        const data = await res.json();
+        console.log(data.allowed_phy);
+        setAllowed(data.allowed_phy);
+      }
+    };
+    fetchPatient();
+  }, [pat_url, token]);
 
   const handleShare = async () => {
     try {
@@ -175,10 +246,11 @@ function ViewDoctorDashboard() {
                         <div className="card-rate-body ">
                           <h4>Rate this doctor</h4>
                           <h6>Tell others what you think </h6>
-                          <form>
+                          <form id="rate-form">
                             <fieldset className="rating">
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star5"
                                 name="rating"
                                 defaultValue={5}
@@ -190,6 +262,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star4half"
                                 name="rating"
                                 defaultValue="4.5"
@@ -201,6 +274,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star4"
                                 name="rating"
                                 defaultValue={4}
@@ -212,6 +286,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star3half"
                                 name="rating"
                                 defaultValue="3.5"
@@ -223,6 +298,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star3"
                                 name="rating"
                                 defaultValue={3}
@@ -234,6 +310,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star2half"
                                 name="rating"
                                 defaultValue="2.5"
@@ -245,6 +322,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star2"
                                 name="rating"
                                 defaultValue={2}
@@ -256,6 +334,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star1half"
                                 name="rating"
                                 defaultValue="1.5"
@@ -267,6 +346,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="star1"
                                 name="rating"
                                 defaultValue={1}
@@ -278,6 +358,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 id="starhalf"
                                 name="rating"
                                 defaultValue="0.5"
@@ -289,6 +370,7 @@ function ViewDoctorDashboard() {
                               />
                               <input
                                 type="radio"
+                                disabled={allowRate ? false : true}
                                 className="reset-option"
                                 name="rating"
                                 defaultValue="reset"
@@ -297,7 +379,8 @@ function ViewDoctorDashboard() {
                             <div class="form-group">
                               <h4>Leave a review</h4>
                               <textarea
-                                name="msg"
+                                name="review"
+                                onChange={handleChange}
                                 id=""
                                 placeholder={
                                   allowRate
@@ -318,6 +401,7 @@ function ViewDoctorDashboard() {
                   </div>
                 </div>
                 <button
+                  onClick={handleSubmit}
                   disabled={allowRate ? false : true}
                   className="btn btn-primary "
                 >
