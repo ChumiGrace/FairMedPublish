@@ -157,34 +157,35 @@ function ViewHealthcareDashboard() {
   console.log(recentReviews);
 
   const Card = ({ review }) => {
+    const stars = Array.from({ length: review.rate }, (_, index) => (
+      <i key={index} className="fa fa-star font fs-5"></i>
+    ));
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8">
-            <div className="media g-mb-30 media-comment">
-              <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                <div className="g-mb-15">
-                  <h5 className="h5 g-color-gray-dark-v1 mb-0">
-                    {review.name}
-                  </h5>
-                  <span className="g-color-gray-dark-v4 g-font-size-12">
-                    <i className="fa fa-star font fs-5"></i>
-                    <i className="fa fa-star font fs-5"></i>
-                    <i className="fa fa-star font fs-5"></i>
-                    <i className="fa fa-star font fs-5"></i>
-                    <i className="fa fa-star font fs-5"></i>
-                  </span>
-                </div>
-                <p>{review.review}</p>
-              </div>
-            </div>
+      <section className="w-50  mx-auto">
+        <div className="Reviewer d-flex">
+          <img src={Placeholder} alt="Profile Picture" />
+          <div>
+            <h2 className="fs-5 p-4">{review.patientName}</h2>
           </div>
         </div>
-      </div>
+        <div className="text-start pb-1">
+          <hr />
+          {stars}
+        </div>
+        <div>
+          <p>{review.review}</p>
+        </div>
+        <div>
+          <p className="text-start"></p>
+          <hr />
+          <button id="shareButton" onClick={handleShare}>
+            <i class="fa fa-share-alt"> Share</i>
+          </button>
+        </div>
+      </section>
     );
   };
 
-  // Component that maps over the fetchedData and renders Card components
   const CardComponent = () => {
     return (
       <div>
@@ -194,6 +195,10 @@ function ViewHealthcareDashboard() {
       </div>
     );
   };
+
+  const starss = Array.from({ length: profileData.rate }, (_, index) => (
+    <i key={index} className="fa fa-star font fs-5"></i>
+  ));
 
   return (
     <div>
@@ -208,10 +213,8 @@ function ViewHealthcareDashboard() {
                 <img src={Placeholder} alt="Profile Picture" />
                 <div>
                   <h2 className="pt-4 pb-0">{profileData.name}</h2>
-                  <p>
-                    <i className="fa fa-star font fs-5"></i>
-                    {profileData.rate}
-                  </p>
+                  <p>{starss}</p>
+                  <p>{profileData.rate}</p>
                 </div>
               </div>
               <hr className="mx-3" />
@@ -229,7 +232,7 @@ function ViewHealthcareDashboard() {
                     <strong>
                       <i class="bx bx-phone"></i>
                     </strong>
-                    {profileData.phond}
+                    {profileData.phone}
                   </li>
                   <li>
                     <strong>

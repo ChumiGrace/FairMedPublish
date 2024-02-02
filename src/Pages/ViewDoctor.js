@@ -58,6 +58,9 @@ function ViewDoctor() {
   console.log(recentReviews);
 
   const Card = ({ review }) => {
+    const stars = Array.from({ length: review.rate }, (_, index) => (
+      <i key={index} className="fa fa-star font fs-5"></i>
+    ));
     return (
       <section className="w-50  mx-auto">
         <div className="Reviewer d-flex">
@@ -68,17 +71,13 @@ function ViewDoctor() {
         </div>
         <div className="text-start pb-1">
           <hr />
-          <i className="fa fa-star font fs-5"></i>
-          <i className="fa fa-star font fs-5"></i>
-          <i className="fa fa-star font fs-5"></i>
-          <i className="fa fa-star font fs-5"></i>
-          <i className="fa fa-star font fs-5"></i>
+          {stars}
         </div>
         <div>
           <p>{review.review}</p>
         </div>
         <div>
-          <p className="text-start">Date: </p>
+          <p className="text-start">{review.rate} </p>
           <hr />
           <button id="shareButton" onClick={handleShare}>
             <i class="fa fa-share-alt"> Share</i>
@@ -105,8 +104,13 @@ function ViewDoctor() {
         <Header />
       </div>
       <div className="main doctorName d-flex">
-        <img src={Placeholder} alt="Profile Picture" />
-        <h2 className="pt-4 pb-">{profileData.name}</h2>
+        <div className="">
+          <img src={Placeholder} alt="Profile Picture" />
+        </div>
+        <div>
+          <h2 className="pt-4 pb-">{profileData.name}</h2>
+          <div className="pt-3 d-block">{profileData.email}</div>
+        </div>
       </div>
       <div className="text-center theReview">
         <h1 className="fs-5 pt-3 pb-3">Reviews</h1>

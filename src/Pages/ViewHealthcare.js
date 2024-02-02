@@ -57,6 +57,9 @@ function ViewHealthcare() {
   console.log(recentReviews);
 
   const Card = ({ review }) => {
+    const stars = Array.from({ length: review.rate }, (_, index) => (
+      <i key={index} className="fa fa-star font fs-5"></i>
+    ));
     return (
       <section className="w-50  mx-auto">
         <div className="Reviewer d-flex">
@@ -67,17 +70,13 @@ function ViewHealthcare() {
         </div>
         <div className="text-start pb-1">
           <hr />
-          <i className="fa fa-star font fs-5"></i>
-          <i className="fa fa-star font fs-5"></i>
-          <i className="fa fa-star font fs-5"></i>
-          <i className="fa fa-star font fs-5"></i>
-          <i className="fa fa-star font fs-5"></i>
+          {stars}
         </div>
         <div>
           <p>{review.review}</p>
         </div>
         <div>
-          <p className="text-start">Date: </p>
+          <p className="text-start">{review.rate}</p>
           <hr />
           <button id="shareButton" onClick={handleShare}>
             <i class="fa fa-share-alt"> Share</i>

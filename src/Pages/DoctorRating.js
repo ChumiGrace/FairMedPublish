@@ -102,20 +102,24 @@ function DoctorRating() {
       <div className="search ">
         <div className="searchBar-container">
           <i className="fa fa-search" id="searchIcon" />
-          <form onSubmit={handleSearch}>
+          <form className="search-form" onSubmit={handleSearch}>
             <input
               className="searchInput"
               onChange={handleSearchChange}
               placeholder="Type to search...."
             />
-            <button type="submit">Search</button>
+            <button className="src-btn" type="submit">
+              Search
+            </button>
           </form>
         </div>
       </div>
-      <CardComponent />
-      {/* <div>
+      <div className="card-wrap">
+        <CardComponent />
+      </div>
+      <div>
         <Footer />
-      </div> */}
+      </div>
     </div>
   );
 }

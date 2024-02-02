@@ -51,6 +51,8 @@ function HealthcareRating() {
   const handleSearch = (e) => {
     e.preventDefault();
     sendSearch();
+    const form = document.getElementById("search-form");
+    form.reset();
   };
 
   const identifyUser = async (event) => {
@@ -107,13 +109,19 @@ function HealthcareRating() {
       <div className="search container d-flex gap-5">
         <div className="searchBar-container">
           <i className="fa fa-search" id="searchIcon" />
-          <form onSubmit={handleSearch}>
+          <form
+            id="search-form"
+            className="search-form"
+            onSubmit={handleSearch}
+          >
             <input
               className="searchInput"
               onChange={handleSearchChange}
               placeholder="Type to search...."
             />
-            <button type="submit">Search</button>
+            <button className="src-btn" type="submit">
+              Search
+            </button>
           </form>
         </div>
         <div className="advertiseHealthcare">
