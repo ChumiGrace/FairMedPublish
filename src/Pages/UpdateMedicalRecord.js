@@ -11,6 +11,7 @@ function UpdateMedicalRecord() {
   const [medications, setMedications] = useState("");
   const [notes, setNotes] = useState("");
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [patId, setPatId] = useState("");
   const [sendD, setSendD] = useState({ phyId: localStorage.getItem("id") });
 
   const [user, setUser] = useState({
@@ -32,12 +33,15 @@ function UpdateMedicalRecord() {
   };
 
   const fetch_url = `http://localhost:8000/records/create/`;
+  const [pat_url, setPat_url] = useState(
+    `http://localhost:8000/patient_detail/${patId}`
+  );
   const view_url = `http://localhost:8000/records/view/`;
   const send_url = `http://localhost:8000/records/sendid/`;
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(true);
   const token = localStorage.getItem("access_token");
   const id = localStorage.getItem("id");
-  const [showRec, setShowRec] = useState(false);
+  const [showRec, setShowRec] = useState(true);
   const phy_url = `http://localhost:8000/physician_profile/${id}/`;
 
   window.addEventListener("beforeunload", function (e) {
@@ -70,25 +74,27 @@ function UpdateMedicalRecord() {
     };
     senId();
   }, []);
-
-  const fetchPhysician = async () => {
-    const res = await fetch(phy_url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (!res.ok) {
-      throw new Error(`HTTP Error! Status: ${res.status}`);
-    } else {
-      const data = await res.json();
-      console.log(data);
-    }
-  };
+  useEffect(() => {
+    const fetchPhysician = async () => {
+      const res = await fetch(phy_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP Error! Status: ${res.status}`);
+      } else {
+        const data = await res.json();
+        setPatId(data.allowedPatient);
+      }
+    };
+    fetchPhysician();
+  }, [phy_url, token]);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(fetch_url, {
+        const res = await fetch(pat_url, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -108,14 +114,13 @@ function UpdateMedicalRecord() {
 
           setIsAuthorized(true);
           pastMedRecs();
-          setName(user.name);
         }
       } catch (error) {
         alert(error);
       }
     };
     getUser();
-  }, [token, fetch_url]);
+  }, [token, pat_url]);
 
   // console.log(user);
 
@@ -159,8 +164,8 @@ function UpdateMedicalRecord() {
       }
     } catch (error) {
       alert(`Server error: ${error}`);
-      setIsFormVisible(false);
-      setShowRec(false);
+      // setIsFormVisible(false);
+      // setShowRec(false);
     }
   }
 
@@ -171,8 +176,8 @@ function UpdateMedicalRecord() {
 
   const handleButtonClick = async () => {
     setIsFormVisible(!isFormVisible);
+    pastMedRecs();
     setShowRec(true);
-    fetchPhysician();
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -247,7 +252,10 @@ function UpdateMedicalRecord() {
                   <h2 className="medical-record-name">Medical Record Form</h2>
                   <div className="form-group">
                     <label>Name:</label>
-                    <input type="text" value={user.name} disabled={true} />
+                    <input
+                      type="text"
+                      onChange={(e) => setName(e.target.value)}
+                    />
                   </div>
                   <div className="form-group">
                     <label>Age:</label>

@@ -1048,6 +1048,20 @@ h5 {
   gap: 20px;
 }
 
+.card-dpp {
+  box-shadow: 0px 0px 5px rgb(213, 208, 208);
+}
+.card-dpp:hover {
+  box-shadow: 0px 0px 10px rgb(187, 199, 213);
+}
+
+.c-details i {
+  color: gold;
+}
+.rating-profile-picture {
+  width: 10em;
+}
+
 .advertiseHealthcare {
   background-color: white;
   width: 23%;
@@ -1063,12 +1077,12 @@ h5 {
   text-decoration: none;
 }
 .doctorProfile-container {
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px rgb(213, 208, 208);
   width: 400px;
 }
 
 .doctorProfile-container:hover {
-  box-shadow: 0px 0px 10px black;
+  box-shadow: 0px 0px 10px rgb(187, 199, 213);
 }
 
 .docName i {

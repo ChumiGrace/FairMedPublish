@@ -54,31 +54,33 @@ function DoctorRating() {
   console.log(query);
 
   const Card = ({ user }) => (
-    <section className="mt-5 container doctorProfile-container">
-      <div className="container p-3 text-center">
-        <div className="docName">
+    <section className="container d-flex p-4 gap-5 healthcareProfile-container">
+      <div>
+        <img src={Placeholder} alt="Profile Picture" />
+      </div>
+      <div>
+        <div className="healthcareName pt-4">
           <h2>{user.name}</h2>
           <div>
-            <i className="fa fa-star font fs-5"></i>
-            <a className="text-black text-decoration-none">{user.av_rate}</a>
+            <i className="fa fa-star font fs-5"></i>{" "}
+            <a className="text-black text-decoration-none">
+              {user.av_rate} rating
+            </a>
           </div>
         </div>
         <div>
-          <img src={Placeholder} alt="Profile Picture" />
-        </div>
-      </div>
-      <div className="text-center pb-3">
-        <button
-          type="button"
-          className="btn btn-danger  btn-lg mt-3 w-100 rounded"
-        >
-          <a
-            className="text-decoration-none text-black"
-            href={`/view-doctor/${user.id}`}
+          <button
+            type="button"
+            className="btn btn-danger  btn-lg mt-3 w-100 rounded"
           >
-            View Profile
-          </a>
-        </button>
+            <a
+              className="text-decoration-none text-black"
+              href={`/view-doctor/${user.id}`}
+            >
+              View Profile
+            </a>
+          </button>
+        </div>
       </div>
     </section>
   );
@@ -115,7 +117,11 @@ function DoctorRating() {
         </div>
       </div>
       <div className="card-wrap">
-        <CardComponent />
+        <div className="container mt-5 mb-3">
+          <div className="row d-flex">
+            <CardComponent />
+          </div>
+        </div>
       </div>
       <div>
         <Footer />
