@@ -3,11 +3,13 @@ import "./style.css";
 import Header from "../Components/Navbar/Header";
 import Placeholder from "../Components/Assets/placeholder.png";
 import Footer from "../Components/Footer/Footer";
+import HCData from "../healthcenterlist.json";
 
 function HealthcareRating() {
   const url = `http://localhost:8000/hcs_reviews_rates/`;
   const [query, setQuery] = useState("");
-  const [fetchedData, setFetchedData] = useState([]);
+  const tempData = HCData;
+  const [fetchedData, setFetchedData] = useState(HCData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +21,7 @@ function HealthcareRating() {
           throw new Error(`HTTP Error! Status: ${res.status}`);
         } else {
           const data = await res.json();
-          setFetchedData(data);
+          // setFetchedData(data);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -27,8 +29,6 @@ function HealthcareRating() {
     };
     fetchData();
   }, [url]);
-
-  console.log(fetchedData);
 
   const sendSearch = async () => {
     const res = await fetch(
@@ -55,14 +55,10 @@ function HealthcareRating() {
     form.reset();
   };
 
-  const identifyUser = async (event) => {
-    localStorage.setItem("profileId", event.name);
-  };
-
   const Card = ({ user }) => (
     <section className="container d-flex p-4 gap-5 healthcareProfile-container">
       <div>
-        <img src={Placeholder} alt="Profile Picture" />
+        <img className="hc-img" src={user.url} alt="Profile Pic" />
       </div>
       <div>
         <div className="healthcareName pt-4">
@@ -94,8 +90,8 @@ function HealthcareRating() {
   // Component that maps over the fetchedData and renders Card components
   const CardComponent = () => {
     return (
-      <div>
-        {fetchedData.map((user) => (
+      <div className="card-wrap">
+        {tempData.map((user) => (
           <Card key={user.id} user={user} />
         ))}
       </div>
@@ -128,7 +124,9 @@ function HealthcareRating() {
           <a href="/contact">Advertise your healthcare</a>
         </div>
       </div>
-      <CardComponent />
+      <div className="card-wrap">
+        <CardComponent />
+      </div>
       <div>
         <Footer />
       </div>

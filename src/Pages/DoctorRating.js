@@ -3,11 +3,12 @@ import "./style.css";
 import Header from "../Components/Navbar/Header";
 import Placeholder from "../Components/Assets/placeholder.png";
 import Footer from "../Components/Footer/Footer";
+import DData from "../physicianlist.json";
 
 function DoctorRating() {
   const url = `http://localhost:8000/physicians_reviews_rates/`;
   const [query, setQuery] = useState("");
-  const [fetchedData, setFetchedData] = useState([]);
+  const [fetchedData, setFetchedData] = useState(DData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +57,7 @@ function DoctorRating() {
   const Card = ({ user }) => (
     <section className="container d-flex p-4 gap-5 healthcareProfile-container">
       <div>
-        <img src={Placeholder} alt="Profile Picture" />
+        <img src={Placeholder} alt="Profile Pic" />
       </div>
       <div>
         <div className="healthcareName pt-4">
@@ -88,7 +89,7 @@ function DoctorRating() {
   // Component that maps over the fetchedData and renders Card components
   const CardComponent = () => {
     return (
-      <div>
+      <div className="card-wrap">
         {fetchedData.map((user) => (
           <Card key={user.id} user={user} />
         ))}
